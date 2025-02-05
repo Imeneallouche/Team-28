@@ -1,0 +1,19 @@
+title: "Find the Hardcoded Flag!"
+author: "Medabis Amina"
+category: "Reverse Engineering"
+difficulty: "Easy (for beginners)"
+description: 
+  In this challenge, a hardcoded flag is embedded in an .exe file as a sequence of hexadecimal values.
+  Your task is to reverse engineer the .exe file, convert the hexadecimal values to their corresponding ASCII characters, and retrieve the flag.
+  
+  The flag is stored in the program as an array of hexadecimal bytes, which can be decoded into ASCII characters.
+  Once you've figured out the flag, input it into the program to verify whether your answer is correct or not.
+
+  Good luck!
+
+hints:
+  - "Use a disassembler to analyze the binary and locate the flag (e.g., Ghidra)."
+  - "The flag is stored as a sequence of hexadecimal values. Convert them to ASCII."
+  - "The flag contains 23 characters."
+
+flag: "FLAG{Reversing_is_fun!}"
