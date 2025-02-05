@@ -1,0 +1,11 @@
+title: "enter as an admin"
+author: "kamiri wassim"
+category: "web"
+difficulty: "Easy"
+description: 
+  The Shellmates Club has a vulnerable login page. Can you bypass the authentication and retrieve the flag?
+
+Hint: The developers forgot to sanitize user input. What happens if you use a single quote?
+
+
+flag: "shellmates{sql_injection_success}"

@@ -1,0 +1,28 @@
+name: "The missing traveler"
+author: "Nahla"
+category: OSINT
+difficulty: easy
+description: |
+  a solo traveler has gone missing in his last trip, He left behind a series of clues on his X (twitter) account @ahmedct41 , but his family and friends can’t piece them together
+Help them retrace his steps to find him
+
+
+
+flag format:
+  - shellmates{airportName_restaurantName_hotelName}
+  - keep the names in the original language and use uppercase for the first letter of each word
+  - only include the name not hotel or airport or restaurant in the flag
+
+flag:
+  - shellmates{Elba_LaRosaDeiVenti_10Colori}
+
+hints:
+  - The car rental company might help you.
+  - assuming from the decor, what type of restaurant do you think is it?
+  - Ahmed didn’t turn back. What’s the next stop along his route?
+
+solution: |
+  1. Identify the airport: The car rental phone number (+39 0565 93300) leads to Aeroporto di Elba.
+  2. Find the restaurant: Using Google Maps, locate a nearby seafood restaurant that opens at 6 PM: La Rosa dei Venti.
+  3. Locate the hotel: Compare the hotel’s exterior with street view images to find the 2-star beachside hotel: 10 Colori.
+  4. Combine the names of the locations in the required format to get the flag: shellmates{Elba_LaRosaDeiVenti_10Colori}.
