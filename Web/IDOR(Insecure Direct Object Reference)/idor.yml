@@ -1,0 +1,14 @@
+title: "get to the secret file"
+author: "kamiri wassim"
+category: "web"
+difficulty: "Easy"
+The Shellmates Club has a file viewer that allows users to access their documents.
+ However, it seems the developers forgot to implement proper access controls.
+  Can you exploit the vulnerability and retrieve the flag?
+
+Hint: What happens if you try to access a file that isn’t listed on the homepage?
+      try to change the file to 0 in the URL
+
+value: 200
+
+flag: "shellmates{idor_is_easy}"
