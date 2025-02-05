@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<html>
+
+<head>
+<title>Second game</title>
+</head>
+
+
+<body>
+  <div class="container">
+    <img src="../static/logo.png" alt="Logo" class="logo">
+    <h1>Great job!</h1>
+    <h2>In the previous game, we used the verb "to encrypt". What's that?</h2>
+    <h2>Encryption is securing information by transforming it into a form that only intended recipients can read and process.</h2>
+    <h2>It's like having a secret language that only you and the receiver of your message can understand, so you use it to protect your messages from being infiltrated.</h2>
+    <h2>There are many "secret languages" that are commonly used. A very common one of them is the "Caesar cipher", in which you shift the letters a certain number of time in a certain direction.</h2>
+    <h2>For example, if we shift right with 3 positions, A becomes D, B becomes E ... and Z becomes C.</h2>
+    <h2>Shall we try an example?</h2>
+    <h2>Let's take shellmates's slogan and cipher it by shifting 4 positions to the left. Write the results below!</h2>
+    <h2>"where there is a shell, there is a way."</h2>
+    <form method="POST">
+      <input type="text" class="answer-input" id="password" name="password" required>
+      <br>
+      <button type="submit" class="submit-button">Submit</button>
+    </form>
+  </div>
+</body>
+
+</html>
