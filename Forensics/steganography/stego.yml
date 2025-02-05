@@ -1,0 +1,15 @@
+title: "get the hidden message in an image"
+author: "kamiri wassim"
+category: "steganography"
+difficulty: "Easy"
+discription:
+  The Shellmates Club has hidden a flag in this image. Can you find it?
+
+Hint: 
+  -use steghide to look what's inside the image
+  -does it even need a password
+
+
+value: 200
+
+flag: "shellmates{hidden_in_sus_image}"
