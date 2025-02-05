@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<html>
+
+<head>
+<title>The finale</title>
+</head>
+
+
+<body>
+  <div class="container">
+    <img src="../static/logo.png" alt="Logo" class="logo">
+    <h1>Wonderful! You've made it to the ultimate challenge</h1>
+    <h2>For your final challenge, We'll let you do it all yourself.</h2>
+    <h2>BUT, for a hint, we'll give you the tools you'll need to solve it so don't worry!</h2>
+    <h2>Your final mission is to find the word that's excrypted in these three colours :</h2>
+    <div class="color-container">
+        <img src="../static/color1.png" alt="Logo" class="color-pic">
+        <img src="../static/color2.png" alt="Logo" class="color-pic">
+        <img src="../static/color3.png" alt="Logo" class="color-pic">
+    </div>
+    <h2>You should take your first step <a href="https://imagecolorpicker.com/">here</a>.</h2>
+    <h2>You should have results in a certain base of number. Do your magic and put it <a href="https://lingojam.com/BinaryEncoder%26Decoder">here</a>.</h2>
+    <h2>Did you manage to find the word?</h2>
+    <form method="POST">
+      <input type="text" class="answer-input" id="password" name="password" required>
+      <br>
+      <button type="submit" class="submit-button">Submit</button>
+    </form>
+  </div>
+</body>
+
+</html>

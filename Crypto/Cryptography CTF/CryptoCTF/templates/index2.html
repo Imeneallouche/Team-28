@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<html>
+
+<head>
+<title>First game</title>
+</head>
+
+
+<body>
+  <div class="container">
+    <img src="../static/logo.png" alt="Logo" class="logo">
+    <h1>Welcome! First time with cryptography?</h1>
+    <h2>We hope that these little games we've prepared for you would be a nice introduction to it ;)</h2>
+    <h2>Cryptography is the process of coding or hiding a message in a way that only the recipient of the message can read it.</h2>
+    <h2>For example, if you receive this message : </h2>
+    <h2><mark>.... . .-.. .-.. --- / .-- --- .-. .-.. -..</mark></h2>
+    <h2>Once you figure out that it's "encrypted" in what we call "Morse code", you can easily figure out what's written!</h2>
+    <h2>Which is....? (write your answer below)</h2>
+    <form method="POST">
+      <input type="text" class="answer-input" id="password" name="password" required>
+      <br>
+      <button type="submit" class="submit-button">Submit</button>
+    </form>
+    <h3>PS: for all the games, please write the answers in lowercase.</h3>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<html>
+
+<head>
+<title>Third game</title>
+</head>
+
+
+<body>
+  <div class="container">
+    <img src="../static/logo.png" alt="Logo" class="logo">
+    <h1>You got it!</h1>
+    <h2>How about we try the reverse process this time with "Decryption"?</h2>
+    <h2>For this one, though, let's take a different method. Introducing you to : The Pigpen Cipher!</h2>
+    <h2>This method is a little different because it's based on geometric shapes instead of alphanumeric symbols.</h2>
+    <img src="../static/pigpen.png" alt="pigpen" class="pigpen">
+    <h2>We hope you have fun with this one ;)</h2>
+    <form method="POST">
+      <input type="text" class="answer-input" id="password" name="password" required>
+      <br>
+      <button type="submit" class="submit-button">Submit</button>
+    </form>
+  </div>
+</body>
+
+</html>
