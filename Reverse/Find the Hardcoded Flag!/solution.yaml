@@ -1,0 +1,129 @@
+challenge : 
+  title: "Find the Hardcoded Flag!"
+  author: "Medabis Amina"
+  category: "Reverse Engineering"
+  difficulty: "Easy (for beginners)"
+  description: 
+    In this challenge, a hardcoded flag is embedded in an .exe file as a sequence of hexadecimal values.
+    Your task is to reverse engineer the .exe file, convert the hexadecimal values to their corresponding ASCII characters, and retrieve the flag.
+    
+    The flag is stored in the program as an array of hexadecimal bytes, which can be decoded into ASCII characters.
+    Once you've figured out the flag, input it into the program to verify whether your answer is correct or not.
+
+    Good luck!
+
+  hints:
+    - "Use a disassembler to analyze the binary and locate the flag (e.g., Ghidra)."
+    - "The flag is stored as a sequence of hexadecimal values. Convert them to ASCII."
+    - "The flag contains 23 characters."
+
+______________________________________________________________________________________
+
+solution : Using Ghidra
+
+first of all make sure to download ghidra , open a project , import the .exe file , allow it to get analysed automayically
+and then reanalyze it again by selecting the appropriate analyzers (choose "WindowsPE x86 propagate external ...").
+
+now you are ready no start analysing your file ! 
+
+in the header menu, click on window , then click on Defined strings : 
+* a side window will appear that has a list of items , look for something thats related to verifying the correct 
+password ( for example "accepted" , "correct" , "acces granted") , using the .exe file provided , you will find " correct ! you found the flag ! "
+* we need its location : 00403024	
+* click on the location so it will take you to the code where it was used 
+* this is the code : 
+
+____________________________________________________________________________________________________________________________
+                             .rdata                                          XREF[1]:     check_flag:004013fd(*)               ******
+        00403024 43 6f 72        ds         "Correct! You found the flag: %s\n"
+                 72 65 63 
+                 74 21 20 
+____________________________________________________________________________________________________________________________
+* now we should go and check the adresse mentionned above : 004013fd ( you can use Go to in the navigation section ) 
+____________________________________________________________________________________________________________________________
+        004013fd c7 04 24        MOV        dword ptr [ESP]=>local_7c,.rdata                 = "Correct! You found the flag: 
+                 24 30 40 00
+
+____________________________________________________________________________________________________________________________
+this is actually a part of the function check_flag() that compares the input of the user and the hardcoded flag 
+Let's go through the check_flag function step by step together ! :
+
+        00401340 55              PUSH       EBP                                    |
+        00401341 89 e5           MOV        EBP,ESP                                | // These instructions set up the stack frame and allocate local space for variables.
+        00401343 83 ec 78        SUB        ESP,0x78                               |
+      ------------------------------------------------------------------------------
+
+        00401346 c6 45 d9 46     MOV        byte ptr [EBP + flag_hex[0]],0x46      | // 'F'
+        0040134a c6 45 da 4c     MOV        byte ptr [EBP + flag_hex[1]],0x4c      | // 'L'
+        0040134e c6 45 db 41     MOV        byte ptr [EBP + flag_hex[2]],0x41      | // 'A'
+        00401352 c6 45 dc 47     MOV        byte ptr [EBP + flag_hex[3]],0x47      | // 'G'
+        00401356 c6 45 dd 7b     MOV        byte ptr [EBP + flag_hex[4]],0x7b      | // '{'
+        0040135a c6 45 de 52     MOV        byte ptr [EBP + flag_hex[5]],0x52      | // 'R'
+        0040135e c6 45 df 65     MOV        byte ptr [EBP + flag_hex[6]],0x65      | // 'e'
+        00401362 c6 45 e0 76     MOV        byte ptr [EBP + flag_hex[7]],0x76      | // 'v'
+        00401366 c6 45 e1 65     MOV        byte ptr [EBP + flag_hex[8]],0x65      | // 'e'    //MOV instructions that store ASCII values in the flag_hex array
+        0040136a c6 45 e2 72     MOV        byte ptr [EBP + flag_hex[9]],0x72      | // 'r'    // which means now the flaghex contains "FLAG{Reversing_is_fun!}"
+        0040136e c6 45 e3 73     MOV        byte ptr [EBP + flag_hex[10]],0x73     | // 's'
+        00401372 c6 45 e4 69     MOV        byte ptr [EBP + flag_hex[11]],0x69     | // 'i'
+        00401376 c6 45 e5 6e     MOV        byte ptr [EBP + flag_hex[12]],0x6e     | // 'i'
+        0040137a c6 45 e6 67     MOV        byte ptr [EBP + flag_hex[13]],0x67     | // 'n'
+        0040137e c6 45 e7 5f     MOV        byte ptr [EBP + flag_hex[14]],0x5f     | // '_'
+        00401382 c6 45 e8 69     MOV        byte ptr [EBP + flag_hex[15]],0x69     | // 'i'
+        00401386 c6 45 e9 73     MOV        byte ptr [EBP + flag_hex[16]],0x73     | // 's'
+        0040138a c6 45 ea 5f     MOV        byte ptr [EBP + flag_hex[17]],0x5f     | // '_'
+        0040138e c6 45 eb 66     MOV        byte ptr [EBP + flag_hex[18]],0x66     | // 'f'
+        00401392 c6 45 ec 75     MOV        byte ptr [EBP + flag_hex[19]],0x75     | // 'u'
+        00401396 c6 45 ed 6e     MOV        byte ptr [EBP + flag_hex[20]],0x6e     | // 'n'
+        0040139a c6 45 ee 21     MOV        byte ptr [EBP + flag_hex[21]],0x21v    | // '!'
+        0040139e c6 45 ef 7d     MOV        byte ptr [EBP + flag_hex[22]],0x7d     | // '}'
+
+      ------------------------------------------------------------------------------
+
+        004013a2 c7 45 f0        MOV        dword ptr [EBP + len],0x17             | // length of the flag ( 23 as hinted )
+                 17 00 00 00
+        004013a9 c7 45 f4        MOV        dword ptr [EBP + i],0x0                | // index i starts from 0 
+                 00 00 00 00
+        004013b0 eb 1b           JMP        LAB_004013cd
+      ------------------------------------------------------------------------------
+
+                             LAB_004013b2                                    XREF[1]:     004013d3(j)  
+        004013b2 8d 55 d9        LEA        EDX=>flag_hex,[EBP + -0x27]            | 
+        004013b5 8b 45 f4        MOV        EAX,dword ptr [EBP + i]                |
+        004013b8 01 d0           ADD        EAX,EDX                                |
+        004013ba 0f b6 00        MOVZX      EAX,byte ptr [EAX]                     |
+        004013bd 89 c1           MOV        ECX,EAX                                | // a  loop copies each byte of flag_hex to flag one at a time.
+        004013bf 8d 55 a7        LEA        EDX=>flag,[EBP + -0x59]                |
+        004013c2 8b 45 f4        MOV        EAX,dword ptr [EBP + i]                |
+        004013c5 01 d0           ADD        EAX,EDX                                |
+        004013c7 88 08           MOV        byte ptr [EAX],CL                      |
+        004013c9 83 45 f4 01     ADD        dword ptr [EBP + i],0x1                |
+                             LAB_004013cd                                    XREF[1]:     004013b0(j)  
+      ------------------------------------------------------------------------------
+        004013cd 8b 45 f4        MOV        EAX,dword ptr [EBP + i]                |
+        004013d0 3b 45 f0        CMP        EAX,dword ptr [EBP + len]              |
+        004013d3 72 dd           JC         LAB_004013b2                           |
+        004013d5 8d 55 a7        LEA        EDX=>flag,[EBP + -0x59]                |
+        004013d8 8b 45 f0        MOV        EAX,dword ptr [EBP + len]              |
+        004013db 01 d0           ADD        EAX,EDX                                |
+        004013dd c6 00 00        MOV        byte ptr [EAX]=>flag[23],0x0           |
+        004013e0 8d 45 a7        LEA        EAX=>flag,[EBP + -0x59]                |
+        004013e3 89 44 24 04     MOV        dword ptr [ESP + local_78],EAX         |
+        004013e7 8b 45 08        MOV        EAX,dword ptr [EBP + input]            | // comparing flag with the input  
+        004013ea 89 04 24        MOV        dword ptr [ESP]=>local_7c,EAX          |
+        004013ed e8 8e 08        CALL       _strcmp                                |         
+                 00 00
+        004013f2 85 c0           TEST       EAX,EAX                                |
+        004013f4 75 15           JNZ        LAB_0040140b                           |
+        004013f6 8d 45 a7        LEA        EAX=>flag,[EBP + -0x59]                |
+        004013f9 89 44 24 04     MOV        dword ptr [ESP + local_78],EAX         | // If the strcmp returns 0 (strings match) , print "Correct! You found the flag"
+        004013fd c7 04 24        MOV        dword ptr [ESP]=>local_7c,.rdata       |   
+                                               = "Correct! You found the flag      |   
+                 24 30 40 00
+        00401404 e8 7f 08        CALL       _printf              int _printf(char * _Format, ...)
+                 00 00
+      ------------------------------------------------------------------------------
+
+  after this analysis , we can tell that the hardcoded flag is "FLAG{Reversing_is_fun!}"
+  * to verify this , you can test it using the .exe file 
+ 
+ 
