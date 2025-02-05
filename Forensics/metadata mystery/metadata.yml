@@ -1,0 +1,14 @@
+title: "stolen flag"
+author: "kamiri wassim"
+category: "forensics"
+difficulty: "Easy"
+discription:
+  The Shellmates Club’s prized flag has been stolen! The only clue left behind is a USB drive found at the scene.
+  Analyze the contents of the USB drive to identify the culprit and recover the flag.
+
+Hint: The culprit left behind some incriminating evidence. Look for hidden files and metadata.
+      -use exiftool to see the metadata
+      -look at the comment
+
+value: 350
+flag: "shellmates{culprit_caught}"
