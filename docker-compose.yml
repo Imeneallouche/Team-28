@@ -1,0 +1,27 @@
+version: '3'
+services:
+  sql-injection:
+    build: ./sql-injection
+    ports:
+      - "5000:5000"
+
+  idor:
+    build: ./idor
+    ports:
+      - "5001:5001"
+
+  steganography:
+    build: ./steganography
+    ports:
+      - "5002:5002"
+
+  metadata:
+    build: ./metadata
+    ports:
+      - "5003:5003"
+
+  reverse:
+    build: ./reverse
+    ports:
+      - "5004:5004"
+
